@@ -15,13 +15,12 @@ class UserRepository(private val userDao: UserDtoDao) {
      * If the operation is successful, it emits DataResult.Success with the user.
      * If an error occurs, it emits DataResult.Error with the exception.
      */
-    suspend fun user(id: Long): Flow<DataResult<User?>> {
-        return userDao.getUserById(id)
+    suspend fun user(): Flow<DataResult<User?>> {
+        return userDao.getUserById(1L)
             .map<UserDto?, DataResult<User?>> { userDto -> // Explicit type for map
                 DataResult.Success(userDto?.let { User.fromDto(it) })
             }.catch { e ->
                 emit(DataResult.Error(Exception("User not found", e)))
             }
     }
-
 }

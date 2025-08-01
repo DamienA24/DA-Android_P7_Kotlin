@@ -8,6 +8,6 @@ import javax.inject.Inject
 
 class GetUserUseCase @Inject constructor(private val userRepository: UserRepository) {
     suspend fun execute(): Flow<DataResult<User?>> {
-        return userRepository.user(1)
+        return userRepository.user()
     }
 }
