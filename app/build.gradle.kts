@@ -1,13 +1,14 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.openclassrooms.arista"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.openclassrooms.arista"
@@ -29,9 +30,7 @@ android {
         }
     }
     compileOptions {
-        // Flag to enable support for the new language APIs
         isCoreLibraryDesugaringEnabled = true
-
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -44,27 +43,27 @@ android {
 }
 
 dependencies {
+    // Hilt avec KSP
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    kapt("com.google.dagger:hilt-compiler:2.51.1")
 
-    //Hilt
-    implementation("com.google.dagger:hilt-android:2.42")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
-    kapt("com.google.dagger:hilt-android-compiler:2.42")
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+    implementation("androidx.activity:activity-ktx:1.10.1")
+    implementation("androidx.fragment:fragment-ktx:1.8.8")
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.activity:activity-ktx:1.8.0")
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.room:room-runtime:2.7.2")
+    implementation("androidx.room:room-ktx:2.7.2")
+    kapt("androidx.room:room-compiler:2.7.2")
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 
-    //Tests
+    // Tests
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
-kapt {
-    correctErrorTypes = true
-}
-
